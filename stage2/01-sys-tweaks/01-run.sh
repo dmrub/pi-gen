@@ -49,4 +49,13 @@ on_chroot << EOF
 usermod --pass='*' root
 EOF
 
+on_chroot << EOF
+set -x
+curl -fsSL get.docker.com -o get-docker.sh
+sh get-docker.sh
+rm get-docker.sh
+
+usermod -aG docker pi
+EOF
+
 rm -f "${ROOTFS_DIR}/etc/ssh/"ssh_host_*_key*
